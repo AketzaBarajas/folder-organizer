@@ -4,7 +4,7 @@ import shutil
 
 # Estructura diccionario con las extensiones
 extensiones = {
-    'Imagenes' : ['.jpg','.jpeg','.png','.gif','webp'],
+    'Imagenes' : ['.jpg','.jpeg','.png','.gif','.webp'],
     'Documentos' : ['.doc','.docx','.xls','.xlsx','.ppt','.pptx','.txt'],
     'PDFs' : ['.pdf'],
     'Videos' : ['.mp4','.mkv','.avi','.mov','.webm'],

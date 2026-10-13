@@ -1,52 +1,53 @@
-# 📂 Download Folder Organizer
+# Folder Organizer
 
-![Python](https://img.shields.io/badge/Python-3.x-blue?style=flat&logo=python)
-![Status](https://img.shields.io/badge/Status-Prototype-orange)
+A Python script that sorts the files in your Downloads folder into subfolders by file type.
 
-**Download Folder Organizer** is an automation script developed in Python designed to end the chaos in your Downloads folder.
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-## 💡 What does this project do?
-This script scans your Downloads folder and automatically organizes files by moving them to specific subfolders (such as Pictures, Documents, Installers, etc.) based on their extension.
+## Overview
 
-It uses the system's native `os` and `shutil` libraries for fast and efficient file management.
+Downloads folders fill up with installers, PDFs and images all mixed together. This script reads every file in `~/Downloads`, looks at its extension and moves it into a matching subfolder, creating the subfolder if it does not exist yet.
 
-## 🚧 Project Status
-**Version: 1.0 (Prototype)**
-This project is in its first working version. Currently, it functions as a manually executed script. It is recommended to test with non-critical files before using it on a large scale.
+It uses only the Python standard library (`os` and `shutil`). The folder names it creates and the messages it prints are in Spanish.
 
-## ⚙️ How the Organization Works
-The script identifies the extension of each file and automatically moves it to its corresponding folder according to the following list:
+## Features
 
-- '.jpg','.jpeg','.png','.gif','.webp' --> Images
-- '.doc','.docx','.xls','.xlsx','.ptt','.pttx','.txt' --> Documents
-- '.pdf' --> PDFs
-- '.mp4','.mkv','.avi','.mov','.webm' --> Videos
-- '.zip','.rar' --> Compressed
-- '.exe','.msi','.bat' --> Installers
-- Other type of filde --> Others
+- **Sorts by extension** into seven folders:
 
-> **Note** If the destination folder does not exist, the script will automatically create it before moving the files.
+  | Folder         | Extensions                                                |
+  | -------------- | --------------------------------------------------------- |
+  | `Imagenes`     | `.jpg` `.jpeg` `.png` `.gif` `.webp`                      |
+  | `Documentos`   | `.doc` `.docx` `.xls` `.xlsx` `.ppt` `.pptx` `.txt`       |
+  | `PDFs`         | `.pdf`                                                    |
+  | `Videos`       | `.mp4` `.mkv` `.avi` `.mov` `.webm`                       |
+  | `Comprimidos`  | `.zip` `.rar`                                             |
+  | `Instaladores` | `.exe` `.msi` `.bat`                                      |
+  | `Otros`        | anything else                                             |
 
-## 📋 Requirements
+- **Finds the folder on its own:** the path is built from the current user's home directory, so there is nothing to configure.
+- **Skips hidden files** (names starting with a dot).
+- **Keeps going on errors:** a file that cannot be moved is reported and the rest are still processed.
 
-* **Python 3.x** installed on your system.
-* **No external dependencies:** This project uses the standard Python libraries (`os` and `shutil`), so you **don't need to install anything** with `pip`. Download and use!
+## Getting started
 
-## 🚀 Instructions for Use
+Requires Python 3. There is nothing to install.
 
-1. Download the code or clone the repository.
-2. Open a terminal in the project folder.
-3. Run the main script:
 ```bash
-`` python main.py
-``
-*(Make sure to replace `main.py` with the actual name of your file if it's different.)*
-4. Check your downloads folder: The chaos will be gone!
+git clone https://github.com/AketzaBarajas/folder-organizer.git
+cd folder-organizer
+python src/organizar_descargas.py
+```
 
-## 🔧 Customization
+The script moves files as soon as it runs and has no preview or undo, so try it first on a Downloads folder you do not mind reorganising.
 
-The script is configured to search the **Downloads** folder by default. If you want to change the source path or destination folders, open the `main.py` file (or whatever your script is called) and look for the configuration variables at the beginning:
+If it reports that the path was not found, your system uses a different name for the Downloads folder. `python src/encontrar_ruta.py` prints your home directory and the folders in it that look like a downloads folder.
 
-```python
-# Example configuration
-source_dir = "C:/Users/YourUsername/Downloads"
+To change the categories, edit the `extensiones` dictionary at the top of `src/organizar_descargas.py`.
+
+## Status
+
+A working first version, run by hand. Known limits: it only handles a folder named `Downloads`, it treats subfolders like any other entry, so a second run moves the category folders themselves into `Otros`, and it has no automated tests.
+
+## License
+
+[MIT](LICENSE)
